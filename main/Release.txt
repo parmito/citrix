@@ -1,0 +1,8 @@
+/*
+
+esp32citrix_28SET2018_01
+-Implementado deep sleep mode na ignição, pino 36. 
+
+esp32citrix_02OUT2018
+-Implementado leitura DS18B20 via biblioteca, usando RMT peripheral, sem a necessidade de chip I2C 
+ 
