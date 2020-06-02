@@ -96,9 +96,7 @@ void Io_Configuration(void)
 	// IGNITION PIN
 	/////////////////
 	gpio_config_t io_conf;
-	//////////////////////////
-	// ADC MAIN BATTERY
-	/////////////////////////
+
 	//disable interrupt
 	io_conf.intr_type = GPIO_PIN_INTR_DISABLE;
 	//set as output mode
@@ -201,21 +199,26 @@ void Io_Configuration(void)
 //////////////////////////////////////////////
 void Io_Sleeping(void)
 {
-	const TickType_t TicksDelay = 1000;
+	/*const TickType_t TicksDelay = 1000;*/
     const int ext_wakeup_pin_1 = 36;
+    const int ext_wakeup_pin_0  = 39;
     const uint64_t ext_wakeup_pin_1_mask = 1ULL << ext_wakeup_pin_1;
+
 
     /*gpio_set_level(GPIO_OUTPUT_GSM_ENABLE, 0);
 	gpio_set_level(GPIO_OUTPUT_GPS_ENABLE, 0);
-
 	vTaskDelay(TicksDelay);*/
+
 
 	#if DEBUG_IO
 	ESP_LOGI(IO_TASK_TAG,"SLEEPING\r\n");
 	#endif
 
+
+
     printf("Enabling EXT1 wakeup on pins GPIO%d\r\n", ext_wakeup_pin_1);
-    esp_sleep_enable_ext1_wakeup(ext_wakeup_pin_1_mask, ESP_EXT1_WAKEUP_ANY_HIGH);
+    esp_sleep_enable_ext1_wakeup(ext_wakeup_pin_1_mask , ESP_EXT1_WAKEUP_ANY_HIGH );
+    esp_sleep_enable_ext0_wakeup(ext_wakeup_pin_0 , 0 );
 
     esp_deep_sleep_start();
 }
@@ -266,31 +269,27 @@ unsigned char TaskIo_ReadIo(void)
     adc_reading /= NO_OF_SAMPLES;
 
 /*
-1227	9.1
-1391	10
-1550	11
-1750	12.2
-
-Regression
+2520	11
+2790	12
+3007	13
+3366	14.3
 
 Regression Model	Linear
-R^2	0.99937302650455
-Standard Error	0.040866864921412
+R^2	0.998037925839085
+Standard Error	0.076513650923424
 
-Slope	0.005963106679401		4096	24.4248849588256
-Intercept	1.75258366782654	4096	7178.58270341751
+Slope	0.0039414266813	16.144083686603
+Intercept	1.0630780205943	4354.36757235425
 
-1227	9.0693155634513
-1391	10.047265058873
-1550	10.9953990208978
-1750	12.1880203567779
-
-
+2520	10.9954732574692
+2790	12.0596584614201
+3007	12.9149480512621
+3366	14.3299202298486
 */
 
-    stIo.flAdMainBatteryVoltage = (adc_reading*14.9);
-    stIo.flAdMainBatteryVoltage += 3265.7;
-    stIo.flAdMainBatteryVoltage /= (((1ULL<<10)));
+    stIo.flAdMainBatteryVoltage = (adc_reading*16.14);
+    stIo.flAdMainBatteryVoltage += 4354.36;
+    stIo.flAdMainBatteryVoltage /= (((1ULL<<12)));
 
 
 	#if DEBUG_IO
