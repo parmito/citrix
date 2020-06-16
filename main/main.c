@@ -28,6 +28,7 @@
 #include "freertos/semphr.h"
 #include "app_wifi.h"
 #include "http_client.h"
+#include "http_server.h"
 
 #include "defines.h"
 #include "UartGps.h"
@@ -160,6 +161,9 @@ void app_main()
 
 
 	xQueueHttpCli = xQueueCreate(httcliQUEUE_LENGTH,			/* The number of items the queue can hold. */
+								sizeof( sMessageType ) );	/* The size of each item the queue holds. */
+
+	xQueueHttpSrv = xQueueCreate(httsrvQUEUE_LENGTH,			/* The number of items the queue can hold. */
 								sizeof( sMessageType ) );	/* The size of each item the queue holds. */
 
 	xQueueDebug = xQueueCreate(sdQUEUE_LENGTH,			/* The number of items the queue can hold. */

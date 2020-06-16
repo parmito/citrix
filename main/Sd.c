@@ -92,7 +92,8 @@ extern unsigned char ucCurrentStateGsm;
 static long int liFilePointerPositionBeforeReading = 0;
 static long int liFilePointerPositionAfterReading = 0;
 
-char cConfigRxBuffer[RX_BUF_SIZE];
+char cConfigHttpRxBuffer[RX_BUF_SIZE];
+char cConfigUartRxBuffer[RX_BUF_SIZE];
 char *ptrRxConfig;
 
 
@@ -132,32 +133,42 @@ tstReadWriteDataByIdentifier const astReadWriteTable[] =
 //////////////////////////////////////////////
 unsigned char SearchReadWriteDataByIdentifierFunctions(char *data, tstReadWriteDataByIdentifier const *pst)
 {
-    char *ptr;
+    char *ptr,*ptrData = data;
     unsigned char ucResp = false;
     
     ESP_LOGI(SD_TASK_TAG,"\r\nSearchReadWriteDataByIdentifierFunctions\r\n");
 
     while(pst->ucIndex != 255)
     {
-        ptr = strstr(data,pst->cIdentifier);
+    	ESP_LOGI(SD_TASK_TAG,"pst->ucIndex:%d\r\n",pst->ucIndex);
+        ptr = strstr(ptrData,pst->cIdentifier);
         if(ptr != NULL)
         {
-        	/*ESP_LOGI(SD_TASK_TAG,"\r\n%s",pst->cIdentifier);*/
-            ptr = strstr(data,pst->cParam1);
+            ptr = strstr(ptrData,pst->cParam1);
             if(ptr != NULL)
             {
-            	/*ESP_LOGI(SD_TASK_TAG,"\r\n%s",pst->cParam1);*/
+            	ptrData +=strlen(pst->cIdentifier);
+				ptrData +=strlen(pst->cParam1);
+				ESP_LOGI(SD_TASK_TAG,"cParam1:%s\r\n",pst->cParam1);
+	        	ESP_LOGI(SD_TASK_TAG,"ptrData:%s\r\n",ptrData);
 
-                ptr = strtok (ptr,":");
-                ptr = strtok(NULL,":");
-				if(ptr != NULL)
-                {
-					ucResp = pst->ucFuncPtr(ptr);
-				}	                
-                break;
+				static char cData[128];
+				memset(cData,0,sizeof(cData));
+				ptr = cData;
+				while(*ptrData != '\r')
+				{
+					*ptr = *ptrData;
+					ptr++;
+					ptrData++;
+				}
+				ptrData++;/*"\r"*/
+				ptrData++;/*"\n"*/
+				ESP_LOGI(SD_TASK_TAG,"Data:%s\r\n",cData);
+				ucResp = pst->ucFuncPtr(cData);
             }                
         }
         pst++;
+
     }
     return(ucResp);
 }
@@ -214,8 +225,8 @@ unsigned char ucSdWriteConfigFile(void)
 	stSdMsg.pcMessageData = (char*)BleDebugMsg;
 	xQueueSend(xQueueBle,( void * )&stSdMsg,NULL);
 	
-    memset(&cConfigRxBuffer,0x00,RX_BUF_SIZE);
-    ptrRxConfig = &cConfigRxBuffer[0];
+    memset(&cConfigUartRxBuffer,0x00,RX_BUF_SIZE);
+    ptrRxConfig = &cConfigUartRxBuffer[0];
 
 	return(boError);
 }
@@ -463,8 +474,8 @@ void SdInit(void)
 	/* Create the queue used by the queue send and queue receive tasks.
 	http://www.freertos.org/a00116.html */
 
-    memset(&cConfigRxBuffer,0x00,RX_BUF_SIZE);
-    ptrRxConfig = &cConfigRxBuffer[0];
+    memset(&cConfigUartRxBuffer,0x00,RX_BUF_SIZE);
+    ptrRxConfig = &cConfigUartRxBuffer[0];
 
 	stSdMsg.ucSrc = SRC_SD;
 	stSdMsg.ucDest = SRC_SD;
@@ -1199,18 +1210,18 @@ void vTaskSd( void *pvParameters )
             (void)eEventHandler ((unsigned char)SRC_SD,gpasTaskSd_StateMachine[ucCurrentStateSd], &ucCurrentStateSd, &stSdMsg);
 		}
 
-		if(strlen(cConfigRxBuffer) > 0)
+		if(strlen(cConfigUartRxBuffer) > 0)
 		{
-			ESP_LOGI(SD_TASK_TAG, "%s\r\n",cConfigRxBuffer);
+			ESP_LOGI(SD_TASK_TAG, "%s\r\n",cConfigUartRxBuffer);
 
-			if(strstr((const char*)cConfigRxBuffer,"$CONF:") != NULL)
+			if(strstr((const char*)cConfigUartRxBuffer,"$CONF:") != NULL)
         	{
                 ESP_LOGI(SD_TASK_TAG, "$CONF:\r\n");
 				/* Receive data over BT and pass it over to SD*/
 				stSdMsg.ucSrc = SRC_SD;
 				stSdMsg.ucDest = SRC_SD;
 				stSdMsg.ucEvent = EVENT_SD_READWRITE_CONFIG;
-				stSdMsg.pcMessageData = (char*)cConfigRxBuffer;
+				stSdMsg.pcMessageData = (char*)cConfigUartRxBuffer;
 
 				xQueueSend( xQueueSd, ( void * )&stSdMsg, NULL);
         	}

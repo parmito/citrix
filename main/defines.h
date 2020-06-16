@@ -7,7 +7,7 @@
  extern "C" {
 #endif
 
-#define SOFTWARE_VERSION 		(char*)"3.0.1"
+#define SOFTWARE_VERSION 		(char*)"4.0.0"
 
 #define MODEM_ATTEMPT			3
 
@@ -310,7 +310,7 @@
 #define SRC_HTTPCLI 6
 #define SRC_BLE		7
 #define SRC_IO		8
-
+#define SRC_HTTPSRV 9
 
  /* The number of items the queue can hold.  This is 1 as the receive task
  will remove items as they are added, meaning the send task should always find
@@ -320,6 +320,7 @@
 #define gsmQUEUE_LENGTH						( 5 )
 #define wifiQUEUE_LENGTH					( 5 )
 #define httcliQUEUE_LENGTH					( 5	)
+#define httsrvQUEUE_LENGTH					( 5	)
 #define ultraQUEUE_LENGTH					( 5 )
 #define bleQUEUE _LENGTH					( 10 )
 

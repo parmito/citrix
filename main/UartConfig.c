@@ -26,14 +26,14 @@
 
 static void rx_task();
 
-extern char cConfigRxBuffer[RX_BUF_SIZE];
+extern char cConfigUartRxBuffer[RX_BUF_SIZE];
 extern char *ptrRxConfig;
 
 
 /*extern char *ptrRxGsm;*/
 /*extern char cGsmRxBuffer[RX_BUF_SIZE];*/
 
-char cConfigRxBuffer[RX_BUF_SIZE];
+
 
 #define TXD_PIN (GPIO_NUM_1)
 #define RXD_PIN (GPIO_NUM_3)
@@ -79,13 +79,13 @@ static void rx_task()
             data[rxBytes] = 0;
 
             strcpy(ptrRxConfig,(char*)data);
-            if((ptrRxConfig - cConfigRxBuffer)<= RX_BUF_SIZE)
+            if((ptrRxConfig - cConfigUartRxBuffer)<= RX_BUF_SIZE)
             {
             	ptrRxConfig += rxBytes;
             }
             else
             {
-            	ptrRxConfig = cConfigRxBuffer;
+            	ptrRxConfig = cConfigUartRxBuffer;
             }
 
         }

@@ -1400,7 +1400,7 @@ END GROUP
  *(.jcr)
                 0x000000003fff001c                _data_end = ABSOLUTE (.)
 
-.dram0.rodata   0x000000003fff001c     0x1adc
+.dram0.rodata   0x000000003fff001c     0x1ad4
                 0x000000003fff001c                _rodata_start = ABSOLUTE (.)
  *(.rodata)
  .rodata        0x000000003fff001c       0x14 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_init.o)
@@ -1424,166 +1424,167 @@ END GROUP
  .rodata.update_flash_config
                 0x000000003fff0268       0x14 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_init.o)
  .rodata.bootloader_main.str1.4
-                0x000000003fff027c      0x114 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_init.o)
+                0x000000003fff027c      0x10c /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_init.o)
+                                        0x110 (size before relaxing)
  .rodata.__assert_func.str1.4
-                0x000000003fff0390       0x37 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_init.o)
- *fill*         0x000000003fff03c7        0x1 
+                0x000000003fff0388       0x37 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_init.o)
+ *fill*         0x000000003fff03bf        0x1 
  .rodata.bootloader_init.str1.4
-                0x000000003fff03c8       0xae /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_init.o)
- *fill*         0x000000003fff0476        0x2 
+                0x000000003fff03c0       0xae /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_init.o)
+ *fill*         0x000000003fff046e        0x2 
  .rodata.abort.str1.4
-                0x000000003fff0478       0x22 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_init.o)
- *fill*         0x000000003fff049a        0x2 
+                0x000000003fff0470       0x22 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_init.o)
+ *fill*         0x000000003fff0492        0x2 
  .rodata.__func__$7560
-                0x000000003fff049c       0x10 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_init.o)
+                0x000000003fff0494       0x10 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_init.o)
  .rodata.log_invalid_app_partition.str1.4
-                0x000000003fff04ac       0xab /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
+                0x000000003fff04a4       0xab /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
                                          0xb3 (size before relaxing)
- *fill*         0x000000003fff0557        0x1 
+ *fill*         0x000000003fff054f        0x1 
  .rodata.read_otadata.str1.4
-                0x000000003fff0558       0x8e /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
- *fill*         0x000000003fff05e6        0x2 
+                0x000000003fff0550       0x8e /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
+ *fill*         0x000000003fff05de        0x2 
  .rodata.write_otadata.str1.4
-                0x000000003fff05e8       0x44 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
+                0x000000003fff05e0       0x44 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
  .rodata.set_actual_ota_seq.str1.4
-                0x000000003fff062c       0x3b /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
- *fill*         0x000000003fff0667        0x1 
+                0x000000003fff0624       0x3b /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
+ *fill*         0x000000003fff065f        0x1 
  .rodata.try_load_partition.str1.4
-                0x000000003fff0668       0x40 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
+                0x000000003fff0660       0x40 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
  .rodata.unpack_load_app.str1.4
-                0x000000003fff06a8       0x6d /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
- *fill*         0x000000003fff0715        0x3 
+                0x000000003fff06a0       0x6d /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
+ *fill*         0x000000003fff070d        0x3 
  .rodata.load_image.str1.4
-                0x000000003fff0718       0x3d /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
- *fill*         0x000000003fff0755        0x3 
+                0x000000003fff0710       0x3d /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
+ *fill*         0x000000003fff074d        0x3 
  .rodata.bootloader_utility_load_partition_table.str1.4
-                0x000000003fff0758      0x196 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
- *fill*         0x000000003fff08ee        0x2 
+                0x000000003fff0750      0x196 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
+ *fill*         0x000000003fff08e6        0x2 
  .rodata.bootloader_utility_load_partition_table
-                0x000000003fff08f0       0x18 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
+                0x000000003fff08e8       0x18 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
  .rodata.bootloader_utility_get_selected_boot_partition.str1.4
-                0x000000003fff0908      0x112 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
- *fill*         0x000000003fff0a1a        0x2 
+                0x000000003fff0900      0x112 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
+ *fill*         0x000000003fff0a12        0x2 
  .rodata.bootloader_utility_load_boot_image.str1.4
-                0x000000003fff0a1c       0xe1 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
- *fill*         0x000000003fff0afd        0x3 
+                0x000000003fff0a14       0xe1 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_utility.o)
+ *fill*         0x000000003fff0af5        0x3 
  .rodata.bootloader_common_erase_part_type_data.str1.4
-                0x000000003fff0b00       0x9a /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_common.o)
+                0x000000003fff0af8       0x9a /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_common.o)
                                         0x10e (size before relaxing)
- *fill*         0x000000003fff0b9a        0x2 
+ *fill*         0x000000003fff0b92        0x2 
  .rodata.bootloader_common_check_chip_validity.str1.4
-                0x000000003fff0b9c       0xec /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_common.o)
+                0x000000003fff0b94       0xec /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_common.o)
  .rodata.esp_partition_table_verify.str1.4
-                0x000000003fff0c88      0x163 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
- *fill*         0x000000003fff0deb        0x1 
+                0x000000003fff0c80      0x163 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(flash_partitions.o)
+ *fill*         0x000000003fff0de3        0x1 
  .rodata.verify_segment_header.str1.4
-                0x000000003fff0dec       0x91 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- *fill*         0x000000003fff0e7d        0x3 
+                0x000000003fff0de4       0x91 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ *fill*         0x000000003fff0e75        0x3 
  .rodata.verify_checksum.str1.4
-                0x000000003fff0e80       0x42 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- *fill*         0x000000003fff0ec2        0x2 
+                0x000000003fff0e78       0x42 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ *fill*         0x000000003fff0eba        0x2 
  .rodata.verify_image_header.str1.4
-                0x000000003fff0ec4       0xb9 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x000000003fff0ebc       0xb9 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
  .rodata.process_segment_data.str1.4
-                0x000000003fff0f7d       0x3a /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- *fill*         0x000000003fff0f7d        0x3 
+                0x000000003fff0f75       0x3a /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ *fill*         0x000000003fff0f75        0x3 
  .rodata.verify_simple_hash.str1.4
-                0x000000003fff0f80       0x5a /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- *fill*         0x000000003fff0fda        0x2 
+                0x000000003fff0f78       0x5a /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ *fill*         0x000000003fff0fd2        0x2 
  .rodata.process_segment.str1.4
-                0x000000003fff0fdc      0x207 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x000000003fff0fd4      0x207 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
                                         0x20b (size before relaxing)
- *fill*         0x000000003fff11e3        0x1 
+ *fill*         0x000000003fff11db        0x1 
  .rodata.image_load.str1.4
-                0x000000003fff11e4      0x10a /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
- *fill*         0x000000003fff12ee        0x2 
+                0x000000003fff11dc      0x10a /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+ *fill*         0x000000003fff12e6        0x2 
  .rodata.__func__$4275
-                0x000000003fff12f0       0x20 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
+                0x000000003fff12e8       0x20 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(esp_image_format.o)
  .rodata.bootloader_fill_random.str1.4
-                0x000000003fff1310       0x5f /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- *fill*         0x000000003fff136f        0x1 
+                0x000000003fff1308       0x5f /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ *fill*         0x000000003fff1367        0x1 
  .rodata.__func__$4747
-                0x000000003fff1370       0x17 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
- *fill*         0x000000003fff1387        0x1 
+                0x000000003fff1368       0x17 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_random.o)
+ *fill*         0x000000003fff137f        0x1 
  .rodata.bootloader_sha256_data.str1.4
-                0x000000003fff1388       0x76 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- *fill*         0x000000003fff13fe        0x2 
+                0x000000003fff1380       0x76 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ *fill*         0x000000003fff13f6        0x2 
  .rodata.bootloader_sha256_finish.str1.4
-                0x000000003fff1400       0x5c /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+                0x000000003fff13f8       0x5c /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
  .rodata.padding$4087
-                0x000000003fff145c       0x40 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+                0x000000003fff1454       0x40 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
  .rodata.__func__$4083
-                0x000000003fff149c       0x19 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- *fill*         0x000000003fff14b5        0x3 
+                0x000000003fff1494       0x19 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ *fill*         0x000000003fff14ad        0x3 
  .rodata.__func__$4063
-                0x000000003fff14b8       0x17 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
- *fill*         0x000000003fff14cf        0x1 
+                0x000000003fff14b0       0x17 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_sha.o)
+ *fill*         0x000000003fff14c7        0x1 
  .rodata.bootloader_flash_read_allow_decrypt.str1.4
-                0x000000003fff14d0       0x4b /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- *fill*         0x000000003fff151b        0x1 
+                0x000000003fff14c8       0x4b /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ *fill*         0x000000003fff1513        0x1 
  .rodata.bootloader_mmap.str1.4
-                0x000000003fff151c       0x6e /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- *fill*         0x000000003fff158a        0x2 
+                0x000000003fff1514       0x6e /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ *fill*         0x000000003fff1582        0x2 
  .rodata.bootloader_flash_read.str1.4
-                0x000000003fff158c       0xe6 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- *fill*         0x000000003fff1672        0x2 
+                0x000000003fff1584       0xe6 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ *fill*         0x000000003fff166a        0x2 
  .rodata.bootloader_flash_write.str1.4
-                0x000000003fff1674       0xea /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
- *fill*         0x000000003fff175e        0x2 
+                0x000000003fff166c       0xea /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/bootloader_support/libbootloader_support.a(bootloader_flash.o)
+ *fill*         0x000000003fff1756        0x2 
  .rodata.rtc_clk_xtal_freq_estimate.str1.4
-                0x000000003fff1760       0xec /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_clk_init.o)
+                0x000000003fff1758       0xec /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_clk_init.o)
  .rodata.rtc_clk_xtal_freq_estimate
-                0x000000003fff184c       0x64 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_clk_init.o)
+                0x000000003fff1844       0x64 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_clk_init.o)
  .rodata.rtc_clk_init.str1.4
-                0x000000003fff18b0       0xdf /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_clk_init.o)
- *fill*         0x000000003fff198f        0x1 
+                0x000000003fff18a8       0xdf /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_clk_init.o)
+ *fill*         0x000000003fff1987        0x1 
  .rodata.rtc_clk_cal_internal.str1.4
-                0x000000003fff1990       0xa9 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_time.o)
- *fill*         0x000000003fff1a39        0x3 
+                0x000000003fff1988       0xa9 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_time.o)
+ *fill*         0x000000003fff1a31        0x3 
  .rodata.__func__$3579
-                0x000000003fff1a3c       0x15 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_time.o)
- *fill*         0x000000003fff1a51        0x3 
+                0x000000003fff1a34       0x15 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_time.o)
+ *fill*         0x000000003fff1a49        0x3 
  .rodata.rtc_clk_cpu_freq_to_config.str1.4
-                0x000000003fff1a54       0x3c /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000003fff1a4c       0x3c /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_clk.o)
  .rodata.rtc_clk_cpu_freq_get_config.str1.4
-                0x000000003fff1a90       0x3b /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_clk.o)
- *fill*         0x000000003fff1acb        0x1 
+                0x000000003fff1a88       0x3b /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_clk.o)
+ *fill*         0x000000003fff1ac3        0x1 
  .rodata.rtc_clk_cpu_freq_to_pll_mhz.str1.4
-                0x000000003fff1acc       0x2c /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_clk.o)
+                0x000000003fff1ac4       0x2c /home/danilo/esp/esp-idf/examples/get-started/citrix/build/bootloader/soc/libsoc.a(rtc_clk.o)
                                          0x29 (size before relaxing)
  *(.gnu.linkonce.r.*)
  *(.rodata1)
-                0x000000003fff1af8                __XT_EXCEPTION_TABLE_ = ABSOLUTE (.)
+                0x000000003fff1af0                __XT_EXCEPTION_TABLE_ = ABSOLUTE (.)
  *(.xt_except_table)
  *(.gcc_except_table)
  *(.gnu.linkonce.e.*)
  *(.gnu.version_r)
  *(.eh_frame)
-                0x000000003fff1af8                . = ((. + 0x3) & 0xfffffffffffffffc)
-                0x000000003fff1af8                __init_array_start = ABSOLUTE (.)
+                0x000000003fff1af0                . = ((. + 0x3) & 0xfffffffffffffffc)
+                0x000000003fff1af0                __init_array_start = ABSOLUTE (.)
  *crtbegin.*(.ctors)
  *(EXCLUDE_FILE(*crtend.*) .ctors)
  *(SORT_BY_NAME(.ctors.*))
  *(.ctors)
-                0x000000003fff1af8                __init_array_end = ABSOLUTE (.)
+                0x000000003fff1af0                __init_array_end = ABSOLUTE (.)
  *crtbegin.*(.dtors)
  *(EXCLUDE_FILE(*crtend.*) .dtors)
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
-                0x000000003fff1af8                __XT_EXCEPTION_DESCS_ = ABSOLUTE (.)
+                0x000000003fff1af0                __XT_EXCEPTION_DESCS_ = ABSOLUTE (.)
  *(.xt_except_desc)
  *(.gnu.linkonce.h.*)
-                0x000000003fff1af8                __XT_EXCEPTION_DESCS_END__ = ABSOLUTE (.)
+                0x000000003fff1af0                __XT_EXCEPTION_DESCS_END__ = ABSOLUTE (.)
  *(.xt_except_desc_end)
  *(.dynamic)
  *(.gnu.version_d)
-                0x000000003fff1af8                _rodata_end = ABSOLUTE (.)
-                0x000000003fff1af8                _lit4_start = ABSOLUTE (.)
+                0x000000003fff1af0                _rodata_end = ABSOLUTE (.)
+                0x000000003fff1af0                _lit4_start = ABSOLUTE (.)
  *(*.lit4)
  *(.lit4.*)
  *(.gnu.linkonce.lit4.*)
-                0x000000003fff1af8                _lit4_end = ABSOLUTE (.)
-                0x000000003fff1af8                . = ALIGN (0x4)
+                0x000000003fff1af0                _lit4_end = ABSOLUTE (.)
+                0x000000003fff1af0                . = ALIGN (0x4)
                 0x0000000040008550                PROVIDE (ets_update_cpu_frequency = 0x40008550)
                 0x000000004005db1c                PROVIDE (MD5Final = 0x4005db1c)
                 0x000000004005da7c                PROVIDE (MD5Init = 0x4005da7c)

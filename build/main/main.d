@@ -86,6 +86,9 @@ main.o: /home/danilo/esp/esp-idf/examples/get-started/citrix/main/main.c \
  /home/danilo/esp/esp-idf/components/esp_wifi/include/esp_wifi_crypto_types.h \
  /home/danilo/esp/esp-idf/components/esp_wifi/include/esp_private/wifi_os_adapter.h \
  /home/danilo/esp/esp-idf/examples/get-started/citrix/main/http_client.h \
+ /home/danilo/esp/esp-idf/examples/get-started/citrix/main/http_server.h \
+ /home/danilo/esp/esp-idf/components/esp_http_server/include/esp_http_server.h \
+ /home/danilo/esp/esp-idf/components/nghttp/port/include/http_parser.h \
  /home/danilo/esp/esp-idf/examples/get-started/citrix/main/defines.h \
  /home/danilo/esp/esp-idf/examples/get-started/citrix/main/UartGps.h \
  /home/danilo/esp/esp-idf/examples/get-started/citrix/main/UartGsm.h \
@@ -270,6 +273,12 @@ main.o: /home/danilo/esp/esp-idf/examples/get-started/citrix/main/main.c \
 /home/danilo/esp/esp-idf/components/esp_wifi/include/esp_private/wifi_os_adapter.h:
 
 /home/danilo/esp/esp-idf/examples/get-started/citrix/main/http_client.h:
+
+/home/danilo/esp/esp-idf/examples/get-started/citrix/main/http_server.h:
+
+/home/danilo/esp/esp-idf/components/esp_http_server/include/esp_http_server.h:
+
+/home/danilo/esp/esp-idf/components/nghttp/port/include/http_parser.h:
 
 /home/danilo/esp/esp-idf/examples/get-started/citrix/main/defines.h:
 

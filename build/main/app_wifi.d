@@ -84,6 +84,9 @@ app_wifi.o: \
  /home/danilo/esp/esp-idf/components/freertos/include/freertos/timers.h \
  /home/danilo/esp/esp-idf/components/freertos/include/freertos/task.h \
  /home/danilo/esp/esp-idf/examples/get-started/citrix/main/app_wifi.h \
+ /home/danilo/esp/esp-idf/examples/get-started/citrix/main/http_server.h \
+ /home/danilo/esp/esp-idf/components/esp_http_server/include/esp_http_server.h \
+ /home/danilo/esp/esp-idf/components/nghttp/port/include/http_parser.h \
  /home/danilo/esp/esp-idf/examples/get-started/citrix/main/defines.h
 
 /home/danilo/esp/esp-idf/components/esp_wifi/include/esp_wifi.h:
@@ -253,6 +256,12 @@ app_wifi.o: \
 /home/danilo/esp/esp-idf/components/freertos/include/freertos/task.h:
 
 /home/danilo/esp/esp-idf/examples/get-started/citrix/main/app_wifi.h:
+
+/home/danilo/esp/esp-idf/examples/get-started/citrix/main/http_server.h:
+
+/home/danilo/esp/esp-idf/components/esp_http_server/include/esp_http_server.h:
+
+/home/danilo/esp/esp-idf/components/nghttp/port/include/http_parser.h:
 
 /home/danilo/esp/esp-idf/examples/get-started/citrix/main/defines.h:
 /home/danilo/esp/esp-idf/examples/get-started/citrix/main/./app_wifi.c:
