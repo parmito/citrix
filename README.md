@@ -6,4 +6,4 @@ GPS data collector every 5s;
 Battery, Temperature, Ignition monitoring;
 Deep Sleep mode;
 
-# citrix 2.0
+# citrix 4.0.1
