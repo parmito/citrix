@@ -140,7 +140,7 @@ unsigned char SearchReadWriteDataByIdentifierFunctions(char *data, tstReadWriteD
 
     while(pst->ucIndex != 255)
     {
-    	ESP_LOGI(SD_TASK_TAG,"pst->ucIndex:%d\r\n",pst->ucIndex);
+    	/*ESP_LOGI(SD_TASK_TAG,"pst->ucIndex:%d\r\n",pst->ucIndex);*/
         ptr = strstr(ptrData,pst->cIdentifier);
         if(ptr != NULL)
         {
@@ -149,8 +149,8 @@ unsigned char SearchReadWriteDataByIdentifierFunctions(char *data, tstReadWriteD
             {
             	ptrData +=strlen(pst->cIdentifier);
 				ptrData +=strlen(pst->cParam1);
-				ESP_LOGI(SD_TASK_TAG,"cParam1:%s\r\n",pst->cParam1);
-	        	ESP_LOGI(SD_TASK_TAG,"ptrData:%s\r\n",ptrData);
+				/*ESP_LOGI(SD_TASK_TAG,"cParam1:%s\r\n",pst->cParam1);
+	        	ESP_LOGI(SD_TASK_TAG,"ptrData:%s\r\n",ptrData);*/
 
 				static char cData[128];
 				memset(cData,0,sizeof(cData));
@@ -163,7 +163,7 @@ unsigned char SearchReadWriteDataByIdentifierFunctions(char *data, tstReadWriteD
 				}
 				ptrData++;/*"\r"*/
 				ptrData++;/*"\n"*/
-				ESP_LOGI(SD_TASK_TAG,"Data:%s\r\n",cData);
+				/*ESP_LOGI(SD_TASK_TAG,"Data:%s\r\n",cData);*/
 				ucResp = pst->ucFuncPtr(cData);
             }                
         }
@@ -184,7 +184,7 @@ unsigned char TaskSd_ReadWriteConfig(sMessageType *psMessage)
 	unsigned char boError = true;
 	tstReadWriteDataByIdentifier const *pst = &astReadWriteTable[0];
 	
-	/*ESP_LOGI(SD_TASK_TAG,"\r\nTaskSd_ReadWriteConfig=%s\r\n",psMessage->pcMessageData);*/
+	ESP_LOGI(SD_TASK_TAG,"\r\nTaskSd_ReadWriteConfig=%s\r\n",psMessage->pcMessageData);
 
 	(void)SearchReadWriteDataByIdentifierFunctions(psMessage->pcMessageData, pst);
 
