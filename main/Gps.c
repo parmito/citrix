@@ -412,7 +412,7 @@ void vTaskGps( void *pvParameters )
 					ESP_LOGI(GPS_TASK_TAG, "ATHLETE MODE\r\n");
 
 					memset(cGpsDataCopiedToSd,0,RX_BUF_SIZE);
-					sprintf(cGpsDataCopiedToSd,"S=%02X%02X%02X%02X%02X%02X,%d,%d,%s,%s,%d,%d,%d,%d,%X,%s,%.1f\r\n",mac[0],mac[1],mac[2],mac[3],mac[4],mac[5],stIo.ucNumSat,(int)stIo.ulHdop,stIo.cLatitude,stIo.cLongitude,stIo.altitude,stIo.course,stIo.speedkmh,1,(unsigned int)stIo.timeSinceEpoch,cfAdMainBatteryVoltage,stIo.flI2cTemperature);
+					sprintf(cGpsDataCopiedToSd,"S=%02X%02X%02X%02X%02X%02X,%d,%d,%s,%s,%d,%d,%d,1,%X,%s,%.1f\r\n",mac[0],mac[1],mac[2],mac[3],mac[4],mac[5],stIo.ucNumSat,(int)stIo.ulHdop,stIo.cLatitude,stIo.cLongitude,stIo.altitude,stIo.course,stIo.speedkmh,(unsigned int)stIo.timeSinceEpoch,cfAdMainBatteryVoltage,stIo.flI2cTemperature);
 
 					memset(cLocalBuffer,0,sizeof(cLocalBuffer));
 					strcpy(cLocalBuffer,(const char*)("GPS:Periodic\r\n"));
