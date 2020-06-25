@@ -7,7 +7,7 @@
  extern "C" {
 #endif
 
-#define SOFTWARE_VERSION 		(char*)"4.0.1"
+#define SOFTWARE_VERSION 		(char*)"4.0.2"
 
 #define MODEM_ATTEMPT			3
 

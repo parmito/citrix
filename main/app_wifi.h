@@ -12,8 +12,8 @@
 
 #include "esp_wifi.h"
 
-#define CONFIG_WIFI_SSID	"kkkkkk"
-#define CONFIG_WIFI_PASSWORD "jjjjjj"
+#define CONFIG_WIFI_SSID	"Iphone4_EXT"
+#define CONFIG_WIFI_PASSWORD "poliana90"
 
 void app_wifi_initialise(void);
 void app_wifi_wait_connected();
