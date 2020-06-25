@@ -342,12 +342,13 @@ void vTaskGps( void *pvParameters )
 
 			ESP_LOGI(GPS_TASK_TAG, "%s", szFilenameToBeWritten);
 
-			memset(cGpsDataCopiedToSd,0,RX_BUF_SIZE);
-			sprintf(cGpsDataCopiedToSd,"S=%02X%02X%02X%02X%02X%02X,%d,%d,%s,%s,%d,%d,%d,%d,%X,%s,%.1f\r\n",mac[0],mac[1],mac[2],mac[3],mac[4],mac[5],stIo.ucNumSat,(int)stIo.ulHdop,stIo.cLatitude,stIo.cLongitude,stIo.altitude,stIo.course,stIo.speedkmh,stIo.ucIgnition,(unsigned int)stIo.timeSinceEpoch,cfAdMainBatteryVoltage,stIo.flI2cTemperature);
-			/*ESP_LOGI(GPS_TASK_TAG, "\r\n<<<<GPS TASK>>>>\r\n%s\r\n<<<<>>>>\r\n",cGpsDataCopiedToSd);*/
-
 			if(stIo.flAdMainBatteryVoltage > 9)
 			{
+				memset(cGpsDataCopiedToSd,0,RX_BUF_SIZE);
+				sprintf(cGpsDataCopiedToSd,"S=%02X%02X%02X%02X%02X%02X,%d,%d,%s,%s,%d,%d,%d,%d,%X,%s,%.1f\r\n",mac[0],mac[1],mac[2],mac[3],mac[4],mac[5],stIo.ucNumSat,(int)stIo.ulHdop,stIo.cLatitude,stIo.cLongitude,stIo.altitude,stIo.course,stIo.speedkmh,stIo.ucIgnition,(unsigned int)stIo.timeSinceEpoch,cfAdMainBatteryVoltage,stIo.flI2cTemperature);
+				/*ESP_LOGI(GPS_TASK_TAG, "\r\n<<<<GPS TASK>>>>\r\n%s\r\n<<<<>>>>\r\n",cGpsDataCopiedToSd);*/
+
+				ESP_LOGI(GPS_TASK_TAG, "BATTERY VOLTAGE > 9\r\n");
 				/* Ignition was ON and now is OFF*/
 				if(ucCurrIgnition != stIo.ucIgnition)
 				{
