@@ -256,10 +256,11 @@ unsigned char TaskIo_ReadIo(void)
 {
 	unsigned char boError = true;
 	static unsigned char ucCurrIgnition = 0xFF;
-	static unsigned long u32EnterSleepMode =0xFFFFFFFF;
+	static long i32EnterSleepMode =0xFFFFFFFF;
     uint32_t adc_reading = 0;
     static char cLocalBuffer[64];
     static unsigned char ucToggleBleDiag = 0;
+	static unsigned long u32CurrentTime,u32PreviousTime = 0xFFFFFFFF,u32DeltaTime;
 
     /* Multisampling */
     for (int i = 0; i < NO_OF_SAMPLES; i++)
@@ -316,7 +317,7 @@ Intercept	1.0630780205943	4354.36757235425
 			break;
 
 			case 3:
-				sprintf(cLocalBuffer,"SLEEP=%ld\r\n",u32EnterSleepMode);
+				sprintf(cLocalBuffer,"SLEEP=%ld\r\n",i32EnterSleepMode*configTICK_RATE_HZ);
 				ucToggleBleDiag = 0;
 			break;
 
@@ -436,7 +437,7 @@ Intercept	1.0630780205943	4354.36757235425
 		if(gpio_get_level(GPIO_INPUT_IGNITION) == 1)
 		{
 			stIo.ucIgnition = 1;
-			u32EnterSleepMode = (stConfigData.u32TimeToSleepInSec);
+			i32EnterSleepMode = (long)((stConfigData.u32TimeToSleepInSec)*configTICK_RATE_HZ);
 
 			if(ucCurrIgnition != stIo.ucIgnition)
 			{
@@ -450,10 +451,26 @@ Intercept	1.0630780205943	4354.36757235425
 		{
 			stIo.ucIgnition = 0;
 
-			if(u32EnterSleepMode ==0xFFFFFFFF)
+			if(i32EnterSleepMode ==0xFFFFFFFF)
 			{
-				u32EnterSleepMode = (stConfigData.u32TimeToSleepInSec);
+				i32EnterSleepMode = (stConfigData.u32TimeToSleepInSec*configTICK_RATE_HZ);
 			}
+
+			u32CurrentTime = (unsigned long)(xTaskGetTickCount());
+			#if DEBUG_IO
+			ESP_LOGI(IO_TASK_TAG,"u32CurrentTime=%ld\r\n",u32CurrentTime);
+			#endif
+			if(u32PreviousTime != 0xFFFFFFFF){
+				u32DeltaTime = u32CurrentTime - u32PreviousTime;
+				u32PreviousTime = u32CurrentTime;
+			}else{
+				u32PreviousTime = u32CurrentTime;
+			}
+			#if DEBUG_IO
+			ESP_LOGI(IO_TASK_TAG,"ElapsedTime=%ld\r\n",u32DeltaTime);
+			#endif
+
+
 
 			if(ucCurrIgnition != stIo.ucIgnition)
 			{
@@ -463,13 +480,12 @@ Intercept	1.0630780205943	4354.36757235425
 				ucCurrIgnition = stIo.ucIgnition;
 			}
 
-			if(u32EnterSleepMode > 0)
+			if(i32EnterSleepMode > 0)
 			{
+				i32EnterSleepMode-= u32DeltaTime;
 				#if DEBUG_IO
-				ESP_LOGI(IO_TASK_TAG,"Sleep=%d\r\n",(int)u32EnterSleepMode);
+				ESP_LOGI(IO_TASK_TAG,"Sleep=%d\r\n",(int)i32EnterSleepMode*configTICK_RATE_HZ);
 				#endif
-
-				u32EnterSleepMode--;
 			}
 			else
 			{

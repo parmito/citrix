@@ -6,4 +6,7 @@ GPS data collector every 5s;
 Battery, Temperature, Ignition monitoring;
 Deep Sleep mode;
 
-# citrix 4.0.1
+# citrix 4.0.4
+
+Fixed sleeping time decrementation. Original sleep time * configTICK_RATE_HZ, decrementing based on ticktime from Freertos.
+

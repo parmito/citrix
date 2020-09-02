@@ -707,7 +707,9 @@ unsigned char TaskSd_Opening(sMessageType *psMessage)
 {
 	unsigned char boError = true;
 	FILE *f;
-	char* cLocalBuffer = (char*) malloc(RX_BUF_SIZE+1);
+	char* cLocalBuffer = (char*) malloc(128);
+
+	/*static char cLocalBuffer[128];*/
 	#if DEBUG_SDCARD
     ESP_LOGI(SD_TASK_TAG, "<<<<OPENING>>>>\r\n");
 	#endif
@@ -741,14 +743,15 @@ unsigned char TaskSd_Opening(sMessageType *psMessage)
 				{
 					if(strstr(ent->d_name,".TXT") != NULL)
 					{
-						memset(cLocalBuffer,0,RX_BUF_SIZE+1);
+						memset(cLocalBuffer,0,/*RX_BUF_SIZE+1*/128);
 
 						strcpy(cLocalBuffer,"/spiffs/");
 						strcat(cLocalBuffer,ent->d_name);
+
 						f = fopen((const char*)cLocalBuffer, "r");
 						if(f == NULL )
 						{
-							ESP_LOGE(SD_TASK_TAG, "Failed to open file for reading");
+							ESP_LOGE(SD_TASK_TAG, "Failed to open file for reading:%s",cLocalBuffer);
 							boError = false;
 						}
 						else
@@ -765,6 +768,7 @@ unsigned char TaskSd_Opening(sMessageType *psMessage)
 							xQueueSend( xQueueSd, ( void * )&stSdMsg, 0);
 						}
 						break;
+
 					}
 					else/*File does not end with .TXT*/
 					{
@@ -772,7 +776,7 @@ unsigned char TaskSd_Opening(sMessageType *psMessage)
 						ESP_LOGE(SD_TASK_TAG, "Trying to remove file");
 						#endif
 
-						memset(cLocalBuffer,0,RX_BUF_SIZE+1);
+						memset(cLocalBuffer,0,/*RX_BUF_SIZE+1*/128);
 
 						strcpy(cLocalBuffer,"/spiffs/");
 						strcat(cLocalBuffer,ent->d_name);
@@ -791,7 +795,7 @@ unsigned char TaskSd_Opening(sMessageType *psMessage)
 				{
 					if(strstr(ent->d_name,"CONFIG") == NULL)
 					{
-						memset(cLocalBuffer,0,RX_BUF_SIZE+1);
+						memset(cLocalBuffer,0,/*RX_BUF_SIZE+1*/128);
 
 						strcpy(cLocalBuffer,"/spiffs/");
 						strcat(cLocalBuffer,ent->d_name);
@@ -993,7 +997,7 @@ unsigned char TaskSd_Reading(sMessageType *psMessage)
 			{
 
 				liFilePointerPositionAfterReading =  ftell (f);
-
+				fclose(f);
 				#if DEBUG_SDCARD
 				ESP_LOGI(SD_TASK_TAG, "PositionAfterReading=%d\r\n",(int)liFilePointerPositionAfterReading);
 				#endif
@@ -1006,8 +1010,6 @@ unsigned char TaskSd_Reading(sMessageType *psMessage)
 				{
 					memset(cConfigAndData,0,RX_BUF_SIZE+1);
 					strncpy(cConfigAndData,cLocalBuffer,i-2);
-
-
 
 #if SRC_GSM
 					//if(ucCurrentStateGsm == TASKGSM_COMMUNICATING)
@@ -1029,7 +1031,6 @@ unsigned char TaskSd_Reading(sMessageType *psMessage)
 						xQueueSend( xQueueHttpCli, ( void * )&stSdMsg, 0);
 					//}
 #endif
-					fclose(f);
 					break;
 				}
 				else
@@ -1053,6 +1054,7 @@ unsigned char TaskSd_Reading(sMessageType *psMessage)
 					ESP_LOGI(SD_TASK_TAG, "File has not been deleted before, delete now!");
 				}
 
+				fclose(f);
 				int ret = remove(szFilenameToBeRead);
 
 				if(ret == 0)
@@ -1080,8 +1082,6 @@ unsigned char TaskSd_Reading(sMessageType *psMessage)
 				stSdMsg.ucEvent = EVENT_HTTPCLI_ENDING/*EVENT_GSM_LIST_SMS_MSG*/;
 				xQueueSend( xQueueHttpCli, ( void * )&stSdMsg, 0);
 #endif
-
-				fclose(f);
 				break;
 			}
 		}
@@ -1110,8 +1110,7 @@ unsigned char TaskSd_Reading(sMessageType *psMessage)
 		stSdMsg.ucEvent = EVENT_SD_OPENING;
 		xQueueSend( xQueueSd, ( void * )&stSdMsg, 0);
 
-
-
+		fclose(f);
 	}
 	free(cLocalBuffer);
 	return(boError);
