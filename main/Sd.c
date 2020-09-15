@@ -8,6 +8,7 @@
 #include <assert.h>
 #include <stdint.h>
 #include <string.h>
+#include <errno.h>
 #include <sys/param.h>
 #include <sys/dirent.h>
 
@@ -696,6 +697,7 @@ unsigned char TaskSd_Init(sMessageType *psMessage)
     return(boError);
 }
 
+int errno ;
 //////////////////////////////////////////////
 //
 //
@@ -706,8 +708,8 @@ unsigned char TaskSd_Init(sMessageType *psMessage)
 unsigned char TaskSd_Opening(sMessageType *psMessage)
 {
 	unsigned char boError = true;
-	FILE *f;
-	char* cLocalBuffer = (char*) malloc(128);
+	static FILE *f;
+	static char cLocalBuffer[128]/* = (char*) malloc(128)*/;
 
 	/*static char cLocalBuffer[128];*/
 	#if DEBUG_SDCARD
@@ -726,18 +728,22 @@ unsigned char TaskSd_Opening(sMessageType *psMessage)
     /*********************************************
      *		READ FILES INSIDE FOLDER
      *********************************************/
-    DIR *dir;
-    struct dirent *ent;
+    static DIR *dir;
+    static struct dirent *ent;
 
     if ((dir = opendir ("/spiffs/")) != NULL)
     {
 		/* print all the files and directories within directory */
 		(void)rewinddir(dir);
+		/*long lpos;*/
 		for(;;)
 		{
+			/*lpos =  telldir(dir);
+			(void)seekdir(dir,lpos);*/
+
 			if((ent = readdir (dir)) != NULL)
 			{
-				ESP_LOGI(SD_TASK_TAG,"%s,FileNumber=%d\n", ent->d_name,ent->d_ino);
+				ESP_LOGI(SD_TASK_TAG,"%s,FileNumber=%d,Type=%d\r\n", ent->d_name,ent->d_ino,ent->d_type);
 
 				if(strstr(ent->d_name,"DATA_") != NULL)
 				{
@@ -748,10 +754,33 @@ unsigned char TaskSd_Opening(sMessageType *psMessage)
 						strcpy(cLocalBuffer,"/spiffs/");
 						strcat(cLocalBuffer,ent->d_name);
 
+						errno = 0;
+
 						f = fopen((const char*)cLocalBuffer, "r");
 						if(f == NULL )
 						{
-							ESP_LOGE(SD_TASK_TAG, "Failed to open file for reading:%s",cLocalBuffer);
+							closedir(dir);
+							ESP_LOGE(SD_TASK_TAG, "Failed to open file for reading:%s,%d",cLocalBuffer,errno);
+
+							#if SRC_GSM
+							stSdMsg.ucSrc = SRC_SD;
+							stSdMsg.ucDest = SRC_GSM;
+							stSdMsg.ucEvent = EVENT_GSM_ENDING/*EVENT_GSM_LIST_SMS_MSG*/;
+							xQueueSend( xQueueGsm, ( void * )&stSdMsg, 0);
+							#endif
+
+							#if SRC_HTTPCLI
+							stSdMsg.ucSrc = SRC_SD;
+							stSdMsg.ucDest = SRC_HTTPCLI;
+							stSdMsg.ucEvent = EVENT_HTTPCLI_ENDING;
+							xQueueSend( xQueueHttpCli, ( void * )&stSdMsg, 0);
+							#endif
+
+							stSdMsg.ucSrc = SRC_SD;
+							stSdMsg.ucDest = SRC_SD;
+							stSdMsg.ucEvent = EVENT_SD_OPENING;
+							xQueueSend( xQueueSd, ( void * )&stSdMsg, 0);
+
 							boError = false;
 						}
 						else
@@ -844,7 +873,7 @@ unsigned char TaskSd_Opening(sMessageType *psMessage)
     	ESP_LOGE(SD_TASK_TAG, "Error opening directory");
         boError = false;
     }
-    free(cLocalBuffer);
+    /*free(cLocalBuffer);*/
 	return(boError);
 }
 
@@ -975,7 +1004,7 @@ unsigned char TaskSd_Reading(sMessageType *psMessage)
     stSdMsg.pcMessageData = (char*)BleDebugMsg;
 	xQueueSend(xQueueBle,( void * )&stSdMsg,NULL);
 
-	f = fopen(szFilenameToBeRead, "r");
+	f = fopen(szFilenameToBeRead, "r+");
 	if(f != NULL)
 	{
 		#if DEBUG_SDCARD
@@ -1130,6 +1159,8 @@ unsigned char TaskSd_Marking(sMessageType *psMessage)
 
 #if DEBUG_SDCARD
 	ESP_LOGI(SD_TASK_TAG, "<<<<MARKING>>>>\r\n");
+	ESP_LOGI(SD_TASK_TAG, "%s\r\n",szFilenameToBeRead);
+
 #endif
 
     const char BleDebugMsg[] = "SD:MARKING FILE";
@@ -1146,6 +1177,10 @@ unsigned char TaskSd_Marking(sMessageType *psMessage)
 		fputs("*",f);
 		liFilePointerPositionBeforeReading = liFilePointerPositionAfterReading;
 		fclose(f);
+
+		#if DEBUG_SDCARD
+		ESP_LOGI(SD_TASK_TAG, "File has been closed\r\n");
+		#endif
 
 	}
 

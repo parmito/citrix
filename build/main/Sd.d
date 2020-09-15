@@ -1,6 +1,7 @@
 Sd.o: /home/danilo/esp/esp-idf/examples/get-started/citrix/main/Sd.c \
  /home/danilo/esp/esp-idf/components/newlib/platform_include/assert.h \
  /home/danilo/esp/esp-idf/examples/get-started/citrix/build/include/sdkconfig.h \
+ /home/danilo/esp/esp-idf/components/newlib/platform_include/errno.h \
  /home/danilo/esp/esp-idf/components/vfs/include/sys/dirent.h \
  /home/danilo/esp/esp-idf/components/freertos/include/freertos/FreeRTOS.h \
  /home/danilo/esp/esp-idf/components/freertos/include/freertos/FreeRTOSConfig.h \
@@ -63,6 +64,8 @@ Sd.o: /home/danilo/esp/esp-idf/examples/get-started/citrix/main/Sd.c \
 /home/danilo/esp/esp-idf/components/newlib/platform_include/assert.h:
 
 /home/danilo/esp/esp-idf/examples/get-started/citrix/build/include/sdkconfig.h:
+
+/home/danilo/esp/esp-idf/components/newlib/platform_include/errno.h:
 
 /home/danilo/esp/esp-idf/components/vfs/include/sys/dirent.h:
 
