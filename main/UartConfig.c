@@ -87,7 +87,6 @@ static void rx_task()
             {
             	ptrRxConfig = cConfigUartRxBuffer;
             }
-
         }
     }
     free(data);

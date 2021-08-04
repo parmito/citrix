@@ -328,13 +328,13 @@ Intercept	1.0630780205943	4354.36757235425
 	/*sprintf(cLocalBuffer,"A,B,T,I=%d,%.1f,%.1f,%d\r\n",adc_reading,stIo.flAdMainBatteryVoltage,stIo.flI2cTemperature,stIo.ucIgnition);*/
 	/*sprintf(cLocalBuffer,"AD,BAT=%d,%.1f\r\n",adc_reading,stIo.flAdMainBatteryVoltage);*/
 
+#if SRC_BLE
 	stDebugMsg.ucSrc = SRC_IO;
 	stDebugMsg.ucDest = SRC_BLE;
 	stDebugMsg.ucEvent = (int)NULL;
 	stDebugMsg.pcMessageData = &cLocalBuffer[0];
-
 	xQueueSend(xQueueBle,( void * )&stDebugMsg,NULL);
-
+#endif
 
 
 	//    // Read temperatures from all sensors sequentially
@@ -413,13 +413,13 @@ Intercept	1.0630780205943	4354.36757235425
 			memset(cLocalBuffer,0,sizeof(cLocalBuffer));
 			sprintf(cLocalBuffer,"IO:Bat,Temp,Ign=%.1f,%.1f,%d\r\n",stIo.flAdMainBatteryVoltage,stIo.flI2cTemperature,stIo.ucIgnition);
 
+#if SRC_BLE
 			stDebugMsg.ucSrc = SRC_IO;
 			stDebugMsg.ucDest = SRC_BLE;
 			stDebugMsg.ucEvent = (int)NULL;
 			stDebugMsg.pcMessageData = &cLocalBuffer[0];
-
 			xQueueSend(xQueueBle,( void * )&stDebugMsg,NULL);
-
+#endif
 
 			#endif
 		}

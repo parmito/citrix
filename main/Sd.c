@@ -220,12 +220,13 @@ unsigned char ucSdWriteConfigFile(void)
 	memset(BleDebugMsg,0x00,sizeof(BleDebugMsg));
 	strcpy(BleDebugMsg,"Data Written OK!");
 
+#if SRC_BLE
 	stSdMsg.ucSrc = SRC_SD;
 	stSdMsg.ucDest = SRC_BLE;
 	stSdMsg.ucEvent = (int)NULL;
 	stSdMsg.pcMessageData = (char*)BleDebugMsg;
 	xQueueSend(xQueueBle,( void * )&stSdMsg,NULL);
-	
+#endif
     memset(&cConfigUartRxBuffer,0x00,RX_BUF_SIZE);
     ptrRxConfig = &cConfigUartRxBuffer[0];
 
@@ -708,7 +709,7 @@ int errno ;
 unsigned char TaskSd_Opening(sMessageType *psMessage)
 {
 	unsigned char boError = true;
-	static FILE *f;
+	FILE *f = NULL;
 	static char cLocalBuffer[128]/* = (char*) malloc(128)*/;
 
 	/*static char cLocalBuffer[128];*/
@@ -716,14 +717,16 @@ unsigned char TaskSd_Opening(sMessageType *psMessage)
     ESP_LOGI(SD_TASK_TAG, "<<<<OPENING>>>>\r\n");
 	#endif
 
-    const char BleDebugMsg[] = "SD:OPENING FILE";
 
+
+#if SRC_BLE
+    const char BleDebugMsg[] = "SD:OPENING FILE";
     stSdMsg.ucSrc = SRC_SD;
     stSdMsg.ucDest = SRC_BLE;
     stSdMsg.ucEvent = (int)NULL;
     stSdMsg.pcMessageData = (char*)BleDebugMsg;
 	xQueueSend(xQueueBle,( void * )&stSdMsg,NULL);
-
+#endif
 
     /*********************************************
      *		READ FILES INSIDE FOLDER
@@ -759,7 +762,6 @@ unsigned char TaskSd_Opening(sMessageType *psMessage)
 						f = fopen((const char*)cLocalBuffer, "r");
 						if(f == NULL )
 						{
-							closedir(dir);
 							ESP_LOGE(SD_TASK_TAG, "Failed to open file for reading:%s,%d",cLocalBuffer,errno);
 
 							#if SRC_GSM
@@ -861,7 +863,8 @@ unsigned char TaskSd_Opening(sMessageType *psMessage)
 				stSdMsg.ucEvent = EVENT_HTTPCLI_ENDING;
 				xQueueSend( xQueueHttpCli, ( void * )&stSdMsg, 0);
 #endif
-
+				fclose(f);
+				closedir(dir);
 				break;
 			}
 		}
@@ -896,12 +899,13 @@ unsigned char TaskSd_Writing(sMessageType *psMessage)
 
     const char BleDebugMsg[] = "SD:WRITING FILE";
 
+#if SRC_BLE
     stSdMsg.ucSrc = SRC_SD;
     stSdMsg.ucDest = SRC_BLE;
     stSdMsg.ucEvent = (int)NULL;
     stSdMsg.pcMessageData = (char*)BleDebugMsg;
 	xQueueSend(xQueueBle,( void * )&stSdMsg,NULL);
-
+#endif
 
 #if 0
     f = fopen((const char*)szFilenameToBeWritten, "w+" );
@@ -989,7 +993,7 @@ unsigned char TaskSd_Writing(sMessageType *psMessage)
 unsigned char TaskSd_Reading(sMessageType *psMessage)
 {
 	unsigned char boError = true;
-	char* cLocalBuffer = (char*) malloc(RX_BUF_SIZE+1);
+	static char cLocalBuffer[RX_BUF_SIZE+1];
 	FILE *f;
 
 #if DEBUG_SDCARD
@@ -998,12 +1002,13 @@ unsigned char TaskSd_Reading(sMessageType *psMessage)
 
     const char BleDebugMsg[] = "SD:READING FILE";
 
+#if SRC_BLE
     stSdMsg.ucSrc = SRC_SD;
     stSdMsg.ucDest = SRC_BLE;
     stSdMsg.ucEvent = (int)NULL;
     stSdMsg.pcMessageData = (char*)BleDebugMsg;
 	xQueueSend(xQueueBle,( void * )&stSdMsg,NULL);
-
+#endif
 	f = fopen(szFilenameToBeRead, "r+");
 	if(f != NULL)
 	{
@@ -1120,6 +1125,8 @@ unsigned char TaskSd_Reading(sMessageType *psMessage)
 		#if DEBUG_SDCARD
 			ESP_LOGE(SD_TASK_TAG, "No more files...");
 		#endif
+
+		fclose(f);
 #if SRC_GSM
 		stSdMsg.ucSrc = SRC_SD;
 		stSdMsg.ucDest = SRC_GSM;
@@ -1139,9 +1146,8 @@ unsigned char TaskSd_Reading(sMessageType *psMessage)
 		stSdMsg.ucEvent = EVENT_SD_OPENING;
 		xQueueSend( xQueueSd, ( void * )&stSdMsg, 0);
 
-		fclose(f);
+
 	}
-	free(cLocalBuffer);
 	return(boError);
 }
 
@@ -1165,12 +1171,13 @@ unsigned char TaskSd_Marking(sMessageType *psMessage)
 
     const char BleDebugMsg[] = "SD:MARKING FILE";
 
+#if SRC_BLE
     stSdMsg.ucSrc = SRC_SD;
     stSdMsg.ucDest = SRC_BLE;
     stSdMsg.ucEvent = (int)NULL;
     stSdMsg.pcMessageData = (char*)BleDebugMsg;
 	xQueueSend(xQueueBle,( void * )&stSdMsg,NULL);
-
+#endif
 	if((f = fopen(szFilenameToBeRead, "r+")) != NULL)
 	{
 		fseek(f,liFilePointerPositionBeforeReading,SEEK_SET);

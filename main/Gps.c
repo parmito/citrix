@@ -359,13 +359,13 @@ void vTaskGps( void *pvParameters )
 
 					ESP_LOGI(GPS_TASK_TAG, "IGNITION CHANGED\r\n");
 
+#if SRC_BLE
 					stGpsMsg.ucSrc = SRC_GPS;
 					stGpsMsg.ucDest = SRC_BLE;
 					stGpsMsg.ucEvent = (int)NULL;
 					stGpsMsg.pcMessageData = &cLocalBuffer[0];
-
 					xQueueSend(xQueueBle,( void * )&stGpsMsg,0);
-
+#endif
 					stGpsMsg.ucSrc = SRC_GPS;
 					stGpsMsg.ucDest = SRC_SD;
 					stGpsMsg.ucEvent = EVENT_SD_WRITING;
@@ -388,13 +388,13 @@ void vTaskGps( void *pvParameters )
 							memset(cLocalBuffer,0,sizeof(cLocalBuffer));
 							strcpy(cLocalBuffer,(const char*)("GPS:Periodic\r\n"));
 
+#if SRC_BLE
 							stGpsMsg.ucSrc = SRC_GPS;
 							stGpsMsg.ucDest = SRC_BLE;
 							stGpsMsg.ucEvent = (int)NULL;
 							stGpsMsg.pcMessageData = &cLocalBuffer[0];
-
 							xQueueSend(xQueueBle,( void * )&stGpsMsg,0);
-
+#endif
 							stGpsMsg.ucSrc = SRC_GPS;
 							stGpsMsg.ucDest = SRC_SD;
 							stGpsMsg.ucEvent = EVENT_SD_WRITING;
@@ -417,14 +417,13 @@ void vTaskGps( void *pvParameters )
 
 					memset(cLocalBuffer,0,sizeof(cLocalBuffer));
 					strcpy(cLocalBuffer,(const char*)("GPS:Periodic\r\n"));
-
+#if SRC_BLE
 					stGpsMsg.ucSrc = SRC_GPS;
 					stGpsMsg.ucDest = SRC_BLE;
 					stGpsMsg.ucEvent = (int)NULL;
 					stGpsMsg.pcMessageData = &cLocalBuffer[0];
-
 					xQueueSend(xQueueBle,( void * )&stGpsMsg,0);
-
+#endif
 					stGpsMsg.ucSrc = SRC_GPS;
 					stGpsMsg.ucDest = SRC_SD;
 					stGpsMsg.ucEvent = EVENT_SD_WRITING;
@@ -439,12 +438,13 @@ void vTaskGps( void *pvParameters )
 
 			memset(cLocalBuffer,0,sizeof(cLocalBuffer));
 			strcpy(cLocalBuffer,(const char*)("GPS:NOT FIXING\r\n"));
+#if SRC_BLE
 			stGpsMsg.ucSrc = SRC_GPS;
 			stGpsMsg.ucDest = SRC_BLE;
 			stGpsMsg.ucEvent = (int)NULL;
 			stGpsMsg.pcMessageData = &cLocalBuffer[0];
 			xQueueSend(xQueueBle,( void * )&stGpsMsg,NULL);
-
+#endif
 			stGpsMsg.ucSrc = SRC_GPS;
 			stGpsMsg.ucDest = SRC_DEBUG;
 			stGpsMsg.ucEvent = EVENT_IO_GPS_NOT_FIXED;
@@ -457,12 +457,13 @@ void vTaskGps( void *pvParameters )
 			{
 
 				strcat(cLocalBuffer,(const char*)("GPS:LOG NO GPS\r\n"));
+#if SRC_BLE
 				stGpsMsg.ucSrc = SRC_GPS;
 				stGpsMsg.ucDest = SRC_BLE;
 				stGpsMsg.ucEvent = (int)NULL;
 				stGpsMsg.pcMessageData = &cLocalBuffer[0];
 				xQueueSend(xQueueBle,( void * )&stGpsMsg,NULL);
-
+#endif
 				memset(cGpsDataCopiedToSd,0,RX_BUF_SIZE);
 				sprintf(cGpsDataCopiedToSd,"S=%02X%02X%02X%02X%02X%02X,%d,%d,%s,%s,%d,%d,%d,%d,%X,%s,%.1f\r\n",mac[0],mac[1],mac[2],mac[3],mac[4],mac[5],stIo.ucNumSat,(int)stIo.ulHdop,stIo.cLatitude,stIo.cLongitude,stIo.altitude,stIo.course,stIo.speedkmh,stIo.ucIgnition,(unsigned int)stIo.timeSinceEpoch,cfAdMainBatteryVoltage,stIo.flI2cTemperature);
 

@@ -248,14 +248,13 @@ void TaskGsm_SendAtCmd1(const char *pcDebug,const char *pcAtCmd)
     ptrRxGsm = &cGsmRxBuffer[0];
 
     UartGsmSendData(GSM_TASK_TAG,pcAtCmd);
-
+#if SRC_BLE
 	stGsmMsg.ucSrc = SRC_GSM;
 	stGsmMsg.ucDest = SRC_BLE;
 	stGsmMsg.ucEvent = (int)NULL;
 	stGsmMsg.pcMessageData = (char*)pcDebug;
-
 	xQueueSend(xQueueBle,( void * )&stGsmMsg,NULL);
-
+#endif
 }
 
 

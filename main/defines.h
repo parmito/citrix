@@ -302,13 +302,13 @@
 
 
 /* Installed sources*/
-#define SRC_GSM     1
+#define SRC_GSM     0
 #define SRC_DEBUG   2
 #define SRC_GPS     3
 #define SRC_SD      4
 #define	SRC_WIFI    5
 #define SRC_HTTPCLI 6
-#define SRC_BLE		7
+#define SRC_BLE		0
 #define SRC_IO		8
 #define SRC_HTTPSRV 9
 

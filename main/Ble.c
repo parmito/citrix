@@ -578,48 +578,48 @@ static void gatts_profile_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_
                 	if(strstr((const char*)spp_cmd_buff,"$PROG KEYLESS#") != NULL)
                 	{
 						/* Receive data over BT and printout over UART*/
-						/*stBleMsg.ucSrc = SRC_BLE;
+						stBleMsg.ucSrc = SRC_BLE;
 						stBleMsg.ucDest = SRC_APP;
 						stBleMsg.ucEvent = EVENT_APP_BLE_PROGRAMMING_KEYLESS;
 						stBleMsg.pcMessageData = (char*)spp_cmd_buff;
 
-						xQueueSend( xQueueApp, ( void * )&stBleMsg, NULL);*/
+						xQueueSend( xQueueApp, ( void * )&stBleMsg, NULL);
                 	}
                 	else
                 	{
 						if(strstr((const char*)spp_cmd_buff,"$PROG SENSOR") != NULL)
 						{
 							/* Receive data over BT and printout over UART*/
-							/*stBleMsg.ucSrc = SRC_BLE;
+							stBleMsg.ucSrc = SRC_BLE;
 							stBleMsg.ucDest = SRC_APP;
 							stBleMsg.ucEvent = EVENT_APP_BLE_PROGRAMMING_SENSOR;
 							stBleMsg.pcMessageData = (char*)spp_cmd_buff;
 
-							xQueueSend( xQueueApp, ( void * )&stBleMsg, NULL);*/
+							xQueueSend( xQueueApp, ( void * )&stBleMsg, NULL);
 						}
 						else
 						{
 							if(strstr((const char*)spp_cmd_buff,"$PROG TELEPHONE:") != NULL)
 							{
 								/* Receive data over BT and printout over UART*/
-								/*stBleMsg.ucSrc = SRC_BLE;
+								stBleMsg.ucSrc = SRC_BLE;
 								stBleMsg.ucDest = SRC_APP;
 								stBleMsg.ucEvent = EVENT_APP_BLE_PROGRAMMING_TELEPHONE;
 								stBleMsg.pcMessageData = (char*)spp_cmd_buff;
 
-								xQueueSend( xQueueApp, ( void * )&stBleMsg, NULL);*/
+								xQueueSend( xQueueApp, ( void * )&stBleMsg, NULL);
 							}
 							else
 							{
 								if(strstr((const char*)spp_cmd_buff,"$ERASE TELEPHONE:") != NULL)
 								{
 									/* Receive data over BT and printout over UART*/
-								/*	stBleMsg.ucSrc = SRC_BLE;
+									stBleMsg.ucSrc = SRC_BLE;
 									stBleMsg.ucDest = SRC_APP;
 									stBleMsg.ucEvent = EVENT_APP_BLE_ERASING_TELEPHONE;
 									stBleMsg.pcMessageData = (char*)spp_cmd_buff;
 
-									xQueueSend( xQueueApp, ( void * )&stBleMsg, NULL);*/
+									xQueueSend( xQueueApp, ( void * )&stBleMsg, NULL);
 								}
 							}
 						}
@@ -630,12 +630,12 @@ static void gatts_profile_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_
 							if(strstr((const char*)spp_cmd_buff,"$S") != NULL)
 							{
 								/* Receive data over BT and printout over UART*/
-							/*	stBleMsg.ucSrc = SRC_BLE;
+								stBleMsg.ucSrc = SRC_BLE;
 								stBleMsg.ucDest = SRC_APP;
 								stBleMsg.ucEvent = EVENT_APP_BLE_PROGRAMMING_SENSOR_ID;
 								stBleMsg.pcMessageData = (char*)spp_cmd_buff;
 
-								xQueueSend( xQueueApp, ( void * )&stBleMsg, NULL);*/
+								xQueueSend( xQueueApp, ( void * )&stBleMsg, NULL);
 							}
 
 						}

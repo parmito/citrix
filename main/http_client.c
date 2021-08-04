@@ -32,7 +32,7 @@ extern char cConfigAndData[RX_BUF_SIZE];
 sMessageType stHttpCliMsg;
 extern tstConfiguration stConfigData;
 
-
+static char cLocalBuffer[DEFAULT_HTTP_BUF_SIZE];
 static unsigned char ucCurrentStateHttpCli = TASKHTTPCLI_IDLING;
 static const char *TAG = "HTTP_CLIENT";
 
@@ -69,6 +69,7 @@ esp_err_t _http_event_handler(esp_http_client_event_t *evt)
             if (!esp_http_client_is_chunked_response(evt->client)) {
                 // Write out data
                 // printf("%.*s", evt->data_len, (char*)evt->data);
+                memcpy(cLocalBuffer,evt->data,evt->data_len);
             }
 
             break;
@@ -360,8 +361,9 @@ static void http_perform_as_stream_reader()
 
 static void http_post(const char *post_data)
 {
-	char* cLocalBuffer = (char*) malloc(6+1);
-    memset(cLocalBuffer,0,6+1);
+	/*char* cLocalBuffer = (char*) malloc(6+1);
+    memset(cLocalBuffer,0,6+1);*/
+	memset(cLocalBuffer,0,DEFAULT_HTTP_BUF_SIZE);
     char *ptr = NULL;
 
     esp_http_client_config_t config = {
@@ -384,8 +386,6 @@ static void http_post(const char *post_data)
 
     if (err == ESP_OK)
     {
-		esp_http_client_read(client,cLocalBuffer,6);
-
         ESP_LOGI(TAG, "HTTPS Status = %d, content_length = %d, content = %s\r\n",
                 esp_http_client_get_status_code(client),
                 esp_http_client_get_content_length(client),
@@ -419,7 +419,7 @@ static void http_post(const char *post_data)
     	esp_http_client_close(client);
     }
 
-    free(cLocalBuffer);
+
     esp_http_client_cleanup(client);
 }
 //////////////////////////////////////////////
@@ -444,7 +444,6 @@ unsigned char TaskHttpCli_Init(sMessageType *psMessage)
     return(boError);
 }
 
-static char cLocalBuffer[64];
 //////////////////////////////////////////////
 //
 //
@@ -469,14 +468,13 @@ unsigned char TaskHttpCli_Connecting(sMessageType *psMessage)
 
 
 	sprintf(cLocalBuffer,"HTTP CONNECTING\r\n");
-
+#if SRC_BLE
 	stHttpCliMsg.ucSrc = SRC_HTTPCLI;
 	stHttpCliMsg.ucDest = SRC_BLE;
 	stHttpCliMsg.ucEvent = (int)NULL;
 	stHttpCliMsg.pcMessageData = &cLocalBuffer[0];
-
 	xQueueSend(xQueueBle,( void * )&stHttpCliMsg,NULL);
-
+#endif
 
     return(boError);
 }
@@ -501,14 +499,13 @@ unsigned char TaskHttpCli_Connected(sMessageType *psMessage)
     xQueueSend( xQueueSd, ( void * )&stHttpCliMsg, 0);
 
 	sprintf(cLocalBuffer,"HTTP CONNECTED\r\n");
-
+#if SRC_BLE
 	stHttpCliMsg.ucSrc = SRC_HTTPCLI;
 	stHttpCliMsg.ucDest = SRC_BLE;
 	stHttpCliMsg.ucEvent = (int)NULL;
 	stHttpCliMsg.pcMessageData = &cLocalBuffer[0];
-
 	xQueueSend(xQueueBle,( void * )&stHttpCliMsg,NULL);
-
+#endif
     return(boError);
 }
 
@@ -537,12 +534,13 @@ unsigned char TaskHttpCli_Post(sMessageType *psMessage)
 
 	sprintf(cLocalBuffer,"HTTP POSTING\r\n");
 
+#if SRC_BLE
 	stHttpCliMsg.ucSrc = SRC_HTTPCLI;
 	stHttpCliMsg.ucDest = SRC_BLE;
 	stHttpCliMsg.ucEvent = (int)NULL;
 	stHttpCliMsg.pcMessageData = &cLocalBuffer[0];
-
 	xQueueSend(xQueueBle,( void * )&stHttpCliMsg,NULL);
+#endif
 
     return(boError);
 }
@@ -573,14 +571,13 @@ unsigned char TaskHttpCli_Posted(sMessageType *psMessage)
 
 	memset(cLocalBuffer,0,sizeof(cLocalBuffer));
 	sprintf(cLocalBuffer,"HTTP POSTED\r\n");
-
+#if SRC_BLE
 	stHttpCliMsg.ucSrc = SRC_HTTPCLI;
 	stHttpCliMsg.ucDest = SRC_BLE;
 	stHttpCliMsg.ucEvent = (int)NULL;
 	stHttpCliMsg.pcMessageData = &cLocalBuffer[0];
-
 	xQueueSend(xQueueBle,( void * )&stHttpCliMsg,NULL);
-
+#endif
     return(boError);
 }
 
@@ -605,14 +602,13 @@ unsigned char TaskHttpCli_Disconnected(sMessageType *psMessage)
 
 	memset(cLocalBuffer,0,sizeof(cLocalBuffer));
 	sprintf(cLocalBuffer,"HTTP DISCONNECTED\r\n");
-
+#if SRC_BLE
 	stHttpCliMsg.ucSrc = SRC_HTTPCLI;
 	stHttpCliMsg.ucDest = SRC_BLE;
 	stHttpCliMsg.ucEvent = (int)NULL;
 	stHttpCliMsg.pcMessageData = &cLocalBuffer[0];
-
 	xQueueSend(xQueueBle,( void * )&stHttpCliMsg,NULL);
-
+#endif
     return(boError);
 }
 
@@ -631,20 +627,20 @@ unsigned char TaskHttpCli_Ending(sMessageType *psMessage)
 
 	vTaskDelay(2000/portTICK_PERIOD_MS);
 
-	stHttpCliMsg.ucSrc = SRC_GSM;
+	stHttpCliMsg.ucSrc = SRC_HTTPCLI;
 	stHttpCliMsg.ucDest = SRC_SD;
 	stHttpCliMsg.ucEvent = EVENT_SD_OPENING;
 	xQueueSend( xQueueSd, ( void * )&stHttpCliMsg, 0);
 
 	memset(cLocalBuffer,0,sizeof(cLocalBuffer));
 	sprintf(cLocalBuffer,"HTTP ENDING\r\n");
-
+#if SRC_BLE
 	stHttpCliMsg.ucSrc = SRC_HTTPCLI;
 	stHttpCliMsg.ucDest = SRC_BLE;
 	stHttpCliMsg.ucEvent = (int)NULL;
 	stHttpCliMsg.pcMessageData = &cLocalBuffer[0];
 	xQueueSend(xQueueBle,( void * )&stHttpCliMsg,NULL);
-
+#endif
 
 	stHttpCliMsg.ucSrc = SRC_HTTPCLI;
 	stHttpCliMsg.ucDest = SRC_DEBUG;

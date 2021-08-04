@@ -209,7 +209,7 @@ void DebugInit(void)
 							sizeof( sMessageType ) );	/* The size of each item the queue holds. */
 #endif
 
-    xTaskCreate(vTaskDebug, "vTaskDebug", 1024*2, NULL, configMAX_PRIORITIES-4, NULL);
+    xTaskCreate(vTaskDebug, "vTaskDebug", 1024*2, NULL, configMAX_PRIORITIES, NULL);
 	/* Create the queue used by the queue send and queue receive tasks.
 	http://www.freertos.org/a00116.html */
 

@@ -39,7 +39,7 @@
 #include "Gps.h"
 #include "Sd.h"
 #include "Gsm.h"
-#include "Ble.h"
+//#include "Ble.h"
 
 
 /*static const char *TAG = "example";*/
@@ -141,24 +141,17 @@ void app_main()
     printf("%dMB %s flash\n", spi_flash_get_chip_size() / (1024 * 1024),
             (chip_info.features & CHIP_FEATURE_EMB_FLASH) ? "embedded" : "external");
 
-    /* Uart Gsm initialization*/
-    UartGsminit();
-
-    /* Uart Gps initialization*/
-    UartGpsinit();
-
-    /* Uart Config initialization*/
-    UartConfiginit();
-
 	xQueueSd = xQueueCreate(sdQUEUE_LENGTH,			/* The number of items the queue can hold. */
 							sizeof( sMessageType ) );	/* The size of each item the queue holds. */
 
-
+#if SRC_GSM
 	xQueueGsm = xQueueCreate(gsmQUEUE_LENGTH,			/* The number of items the queue can hold. */
 								sizeof( sMessageType ) );	/* The size of each item the queue holds. */
+#endif
 
+#if SRC_BLE
 	xQueueBle = xQueueCreate(10, sizeof(sMessageType));
-
+#endif
 
 	xQueueHttpCli = xQueueCreate(httcliQUEUE_LENGTH,			/* The number of items the queue can hold. */
 								sizeof( sMessageType ) );	/* The size of each item the queue holds. */
@@ -169,16 +162,26 @@ void app_main()
 	xQueueDebug = xQueueCreate(sdQUEUE_LENGTH,			/* The number of items the queue can hold. */
 							sizeof( sMessageType ) );	/* The size of each item the queue holds. */
 
+    /* Debug initialization*/
+    DebugInit();
+
+    /* Uart Gsm initialization*/
+#if SRC_GSM
+    UartGsminit();
+#endif
+    /* Uart Gps initialization*/
+    UartGpsinit();
+
+    /* Uart Config initialization*/
+    UartConfiginit();
 
     /* Sd initialization*/
     SdInit();
 
     /* Ble initialization*/
+#if SRC_BLE
     BleInit();
-
-    /* Debug initialization*/
-    DebugInit();
-
+#endif
     /* Gps initialization*/
     GpsInit();
 
@@ -186,8 +189,9 @@ void app_main()
     Http_Init();
 
     /* Gsm initialization*/
+#if SRC_GSM
     GsmInit();
-
+#endif
     /* RemoteReceiver initialization*/
     /*RemoteReceiverInit();*/
 
